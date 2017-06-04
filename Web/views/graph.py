@@ -140,7 +140,7 @@ def urlsData(request):
     data = []
     for c in conn:
         b = {}
-        b['name'] = c['offer_url']
+        b['name'] = str(c['offer_url']).decode('utf-8')
         b['value'] = c['offer_url__count']
         data.append(b)
     return HttpResponse(
