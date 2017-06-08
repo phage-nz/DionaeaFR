@@ -53,7 +53,7 @@ def downloadSample(request, file_md5):
 
     temp = tempfile.TemporaryFile()
     archive = zipfile.ZipFile(temp, 'w', zipfile.ZIP_DEFLATED)                       
-    archive.write(filename, file_md5)
+    archive.write(filename, '{0}.vir'.format(file_md5))
     archive.close()
     wrapper = FileWrapper(temp)
     response = HttpResponse(wrapper, content_type='application/zip')
