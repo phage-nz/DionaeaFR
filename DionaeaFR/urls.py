@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url
 
 from Web.views.other import home
 from Web.views.connection import connectionIndex, connectionDetail
-from Web.views.download import downloadIndex
+from Web.views.download import downloadIndex, downloadSample
 from Web.views.graph import services, servicesData
 from Web.views.graph import ports, portsData
 from Web.views.graph import urls, urlsData
@@ -33,6 +33,11 @@ urlpatterns = patterns(
         r'^downloads/',
         downloadIndex,
         name='download-index'
+    ),
+    url(
+        r'^sample/(?P<file_md5>[\w{}.-]{32})/',
+        downloadSample,
+        name='download-sample'
     ),
     url(
         r'^graphs/services/$',

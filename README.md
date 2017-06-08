@@ -48,6 +48,13 @@ Home Dionaea: https://github.com/DinoTools/dionaea
   04/06/2017
     - Fixed URL encoding.
 
+  08/06/2017
+    - Added sample download functionality.
+
+[*] To-Do
+
+  - Make Debug=False the default mode of deployment.
+
 [*] Suggestions?
 
 Designed by @rubenespadas

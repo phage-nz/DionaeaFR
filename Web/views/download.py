@@ -1,3 +1,7 @@
+import os, tempfile, zipfile
+
+from django.core.servers.basehttp import FileWrapper
+from django.http import Http404, HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
@@ -40,5 +44,22 @@ def downloadIndex(request):
             request
         )
     )
+
+def downloadSample(request, file_md5):
+    filename = os.path.join('/opt/dionaea/var/dionaea/binaries', file_md5)
+
+    if not os.path.exists(filename):
+        raise Http404
+
+    temp = tempfile.TemporaryFile()
+    archive = zipfile.ZipFile(temp, 'w', zipfile.ZIP_DEFLATED)                       
+    archive.write(filename, file_md5)
+    archive.close()
+    wrapper = FileWrapper(temp)
+    response = HttpResponse(wrapper, content_type='application/zip')
+    response['Content-Disposition'] = 'attachment; filename={0}.zip'.format(file_md5)
+    response['Content-Length'] = temp.tell()
+    temp.seek(0)
+    return response
 
 # vim: set expandtab:ts=4

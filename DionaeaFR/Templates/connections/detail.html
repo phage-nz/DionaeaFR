@@ -124,6 +124,7 @@
                 <th>Report VT</th>
                 <th>Date VT</th>
                 <th>Results VT</th>
+                <th>Sample</th>
             </tr>
             </thead>
             <tbody>
@@ -143,6 +144,7 @@
                         <td>None</td>
                         <td>None</td>
                     {% endif %}
+                    <td><a href="/sample/{{ file.download_md5_hash }}/">Download</a></td>
                 </tr>
             {% endfor %}
             </tbody>
