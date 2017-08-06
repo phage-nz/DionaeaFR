@@ -1,6 +1,8 @@
-import os, tempfile, zipfile
+import os
 
-from wsgiref.util import FileWrapper
+from StringIO import StringIO
+from zipfile import ZipFile
+
 from django.http import Http404, HttpResponse
 from django.shortcuts import render
 from django.template import RequestContext
@@ -47,15 +49,24 @@ def downloadSample(request, file_md5):
     if not os.path.exists(filename):
         raise Http404
 
-    temp = tempfile.TemporaryFile()
-    archive = zipfile.ZipFile(temp, 'w', zipfile.ZIP_DEFLATED)                       
-    archive.write(filename, '{0}.vir'.format(file_md5))
-    archive.close()
-    wrapper = FileWrapper(temp)
-    response = HttpResponse(wrapper, content_type='application/zip')
+    mem_stream = StringIO()
+    zip = ZipFile(mem_stream, 'a')
+
+    zip.write(filename, '{0}.vir'.format(file_md5))
+
+    for file in zip.filelist:
+        file.create_system = 0
+
+    zip.close()
+
+    response = HttpResponse(content_type='application/zip')
     response['Content-Disposition'] = 'attachment; filename={0}.zip'.format(file_md5)
-    response['Content-Length'] = temp.tell()
-    temp.seek(0)
+    response['Content-Length'] = mem_stream.tell()
+
+    mem_stream.seek(0)
+    response.write(mem_stream.read())
+
     return response
+
 
 # vim: set expandtab:ts=4

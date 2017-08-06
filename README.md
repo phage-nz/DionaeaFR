@@ -53,4 +53,3 @@ Dionaea Home: https://github.com/DinoTools/dionaea
 ## To-Do ##
 
   - Make Debug=False the default mode of deployment.
-  - Fix sample downloads after Django 1.11.x migration.
