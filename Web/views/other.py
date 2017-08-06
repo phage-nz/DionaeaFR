@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.db.models import Count
 from django.conf import settings
 
@@ -33,8 +33,7 @@ def home(request):
         virustotalscan_result__isnull=True
     )
     num_known = known.count()
-    return render_to_response(
-        'home.html',
+    return render(request, 'home.html',
         {
             'num_connections': num_connections,
             'num_ips': num_ips,

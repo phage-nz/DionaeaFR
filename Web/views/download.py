@@ -1,8 +1,8 @@
 import os, tempfile, zipfile
 
-from django.core.servers.basehttp import FileWrapper
+from wsgiref.util import FileWrapper
 from django.http import Http404, HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template import RequestContext
 
 from django_tables2 import RequestConfig
@@ -22,7 +22,7 @@ def downloadIndex(request):
         queryset=downloads
     )
     table = DownloadTable(
-        filterQueryset
+        filterQueryset.qs
     )
     filters = DownloadFilterForm()
     RequestConfig(
@@ -33,16 +33,12 @@ def downloadIndex(request):
     ).configure(
         table
     )
-    return render_to_response(
-        'base.html',
+    return render(request, 'base.html',
         {
             'table': table,
             'filters': filters,
             'title': u'Downloads'
-        },
-        context_instance=RequestContext(
-            request
-        )
+        }
     )
 
 def downloadSample(request, file_md5):

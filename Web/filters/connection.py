@@ -5,21 +5,21 @@ from Web.models.connection import Connection
 
 class ConnectionFilter(filters.FilterSet):
     connection_type = filters.CharFilter(
-        lookup_type='contains'
+        lookup_expr='contains'
     )
 
     connection_transport = filters.CharFilter(
-        lookup_type='contains'
+        lookup_expr='contains'
     )
 
     connection_protocol = filters.CharFilter(
-        lookup_type='contains'
+        lookup_expr='contains'
     )
 
     local_port = filters.NumberFilter()
 
     remote_host = filters.CharFilter(
-        lookup_type='contains'
+        lookup_expr='contains'
     )
 
     remote_port = filters.NumberFilter()

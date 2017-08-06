@@ -1,4 +1,5 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import include, url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from Web.views.other import home
 from Web.views.connection import connectionIndex, connectionDetail
@@ -13,8 +14,7 @@ from Web.views.graph import timeline
 from Web.views.map import attackersMap, countriesMap
 
 
-urlpatterns = patterns(
-    'Web.views',
+urlpatterns = [
     url(
         r'^$',
         home
@@ -123,7 +123,9 @@ urlpatterns = patterns(
         r'^maps/countries/$',
         countriesMap,
         name='countries-map'
-    ),
-)
+    )
+]
+
+urlpatterns += staticfiles_urlpatterns()
 
 # vim: set expandtab:ts=4

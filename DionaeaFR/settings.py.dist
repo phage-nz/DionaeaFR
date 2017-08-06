@@ -26,6 +26,8 @@ DATABASES = {
     }
 }
 
+ALLOWED_HOSTS = ['HOST.NAME']
+
 # How many days (going backwards) worth of results to show
 RESULTS_DAYS = 14 
 
@@ -91,19 +93,24 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'o*w2sbrhS_LKSQwx_dmlslsdmcx,c,k!(el0^qx5dljbv6eyjwx)(76^wppdjrrxnj%wcny3h2r'
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    # 'django.template.loaders.eggs.Loader',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(CURRENT_PATH, 'Templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
-    'django.core.context_processors.static',
-    'django.contrib.messages.context_processors.messages',
-    'django.contrib.auth.context_processors.auth',
-    'Web.context_processors.expose_extra_settings_keys',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -145,10 +152,6 @@ ROOT_URLCONF = 'DionaeaFR.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'DionaeaFR.wsgi.application'
-
-TEMPLATE_DIRS = (
-    os.path.join(CURRENT_PATH, 'Templates'),
-)
 
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),

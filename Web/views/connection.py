@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template import RequestContext
 from django.http import Http404
 
@@ -29,7 +29,7 @@ def connectionIndex(request):
         queryset=connections
     )
     table = ConnectionTable(
-        filterQueryset
+        filterQueryset.qs
     )
     filters = ConnectionFilterForm()
     RequestConfig(
@@ -40,16 +40,12 @@ def connectionIndex(request):
     ).configure(
         table
     )
-    return render_to_response(
-        'base.html',
+    return render(request, 'base.html',
         {
             'filters': filters,
             'table': table,
             'title': u'Connections'
-        },
-        context_instance=RequestContext(
-            request
-        )
+        }
     )
 
 
@@ -106,8 +102,7 @@ def connectionDetail(request, connection_id):
             next = int(connection_id) + 1
     except Connection.DoesNotExist:
         raise Http404
-    return render_to_response(
-        'connections/detail.html',
+    return render(request, 'connections/detail.html',
         {
             'connection': conn,
             'dcerpcbind': dcerpcbind,

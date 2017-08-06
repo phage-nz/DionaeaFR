@@ -12,7 +12,7 @@ except ImportError:
     pass
 
 from django.conf import settings
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template import RequestContext
 from django.http import HttpResponse
 from django.db.models import Count
@@ -49,10 +49,7 @@ gi = pygeoip.GeoIP(
 
 
 def services(request):
-    return render_to_response(
-        'graphs/services.html',
-        context_instance=RequestContext(request)
-    )
+    return render(request, 'graphs/services.html')
 
 
 def servicesData(request):
@@ -85,10 +82,7 @@ def servicesData(request):
 
 
 def ports(request):
-    return render_to_response(
-        'graphs/ports.html',
-        context_instance=RequestContext(request)
-    )
+    return render(request, 'graphs/ports.html')
 
 
 def portsData(request):
@@ -121,10 +115,7 @@ def portsData(request):
 
 
 def urls(request):
-    return render_to_response(
-        'graphs/urls.html',
-        context_instance=RequestContext(request)
-    )
+    return render(request, 'graphs/urls.html')
 
 
 def urlsData(request):
@@ -150,9 +141,7 @@ def urlsData(request):
 
 
 def malware(request):
-    return render_to_response(
-        'graphs/malware.html'
-    )
+    return render(request, 'graphs/malware.html')
 
 
 def malwareData(request):
@@ -182,10 +171,7 @@ def malwareData(request):
 
 
 def ips(request):
-    return render_to_response(
-        'graphs/ips.html',
-        context_instance=RequestContext(request)
-    )
+    return render(request, 'graphs/ips.html')
 
 
 def ipsData(request):
@@ -221,10 +207,7 @@ def ipsData(request):
 
 
 def connections(request):
-    return render_to_response(
-        'graphs/connections.html',
-        context_instance=RequestContext(request)
-    )
+    return render(request, 'graphs/connections.html')
 
 
 def connectionsData(request):

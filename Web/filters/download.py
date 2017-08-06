@@ -10,11 +10,11 @@ from Web.models.download import Download
 
 class DownloadFilter(filters.FilterSet):
     download_url = filters.CharFilter(
-        lookup_type='icontains'
+        lookup_expr='icontains'
     )
 
     download_md5_hash = filters.CharFilter(
-        lookup_type='contains'
+        lookup_expr='contains'
     )
 
     class Meta:
